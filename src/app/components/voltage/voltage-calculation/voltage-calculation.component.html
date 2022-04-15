@@ -1,0 +1,44 @@
+<div class="container">
+  <h3>Укажите параметры:</h3>
+
+  <form [formGroup]="form">
+    <div class="item-radio">
+      <input type="radio" id="item1" name="radio" formControlName="radio" value="radio1" checked>
+      <label for="item1">расчет напряжения по току и сопротивлению</label>
+    </div>
+
+    <div class="item-radio">
+      <input type="radio" id="item2" name="radio" formControlName="radio" value="radio2">
+      <label for="item2">расчет напряжения по току и мощности</label>
+    </div>
+
+    <div class="item-radio">
+      <input type="radio" id="item3" name="radio" formControlName="radio" value="radio3">
+      <label for="item3">расчет напряжения по сопротивлению и мощности</label>
+    </div>
+
+    <div class="container-input">
+      <div class="item-input" *ngIf="form.value.radio !== 'radio3'">
+        <span>Сила тока, А</span>
+        <input type="number" name="voltage" formControlName="currentStrength">
+      </div>
+
+      <div class="item-input" *ngIf="form.value.radio !== 'radio2'">
+        <span>Сопротивление, Ом</span>
+        <input type="number" name="voltage" formControlName="resistance">
+      </div>
+
+      <div class="item-input" *ngIf="form.value.radio !== 'radio1'">
+        <span>Мощность, Вт</span>
+        <input type="number" name="voltage" formControlName="power">
+      </div>
+    </div>
+
+    <div class="result-box">
+      <h3 *ngIf="form.value.radio === 'radio1'">Напряжение: {{getVoltageByCurrentAndResistance}} В</h3>
+      <h3 *ngIf="form.value.radio === 'radio2'">Напряжение: {{getVoltageByCurrentAndPower}} В</h3>
+      <h3 *ngIf="form.value.radio === 'radio3'">Напряжение: {{getVoltageByPowerAndResistance}} В</h3>
+    </div>
+
+  </form>
+</div>

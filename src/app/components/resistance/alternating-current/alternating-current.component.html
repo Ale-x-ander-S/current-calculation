@@ -1,0 +1,43 @@
+<form [formGroup]="form">
+
+  <div class="item-input">
+    <span>Длина проводника, м</span>
+    <input type="number" name="conductorLength" formControlName="conductorLength">
+  </div>
+
+  <div class="item-input">
+    <span>Площадь сечения проводника, мм <small>2</small></span>
+    <input type="number" name="conductorArea" formControlName="conductorArea">
+  </div>
+
+  <div class="item-input">
+    <span>Удельное сопротивление проводника, Ом·мм <small>2</small>/м</span>
+    <input type="number" name="conductorResistivity" formControlName="conductorResistivity">
+  </div>
+
+
+
+  <div class="item-input">
+    <span>Индуктивность, Гн</span>
+    <input type="number" name="inductance" formControlName="inductance">
+  </div>
+
+  <div class="result-box">
+    <h3>Сопротивление:
+<!--      <strong>{{getACresistance}}</strong> Ом-->
+    </h3>
+
+    <h4>Активное сопротивление:
+      <strong>{{getActiveResistance}}</strong> Ом
+    </h4>
+
+    <h4>Активное сопротивление:
+      <strong>{{getCapacitance}}</strong> Ом
+    </h4>
+
+    <h4>Индуктивное сопротивление:
+      <strong>{{getInductiveReactance}}</strong> Ом
+    </h4>
+  </div>
+
+</form>

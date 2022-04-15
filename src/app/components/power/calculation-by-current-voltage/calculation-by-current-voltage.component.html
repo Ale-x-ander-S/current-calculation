@@ -1,0 +1,42 @@
+<form [formGroup]="bottomForm">
+  <div class="item-input">
+    <span>Тип питающей сети</span>
+    <select name="mainsType" formControlName="mainsType">
+      <option value="">Выбрать...</option>
+      <option value="directСurrent">Постоянный ток</option>
+      <option value="single-phase">Переменный ток (однофазная сеть)</option>
+      <option value="three-phase">Переменный ток (трехфазная сеть)</option>
+    </select>
+  </div>
+
+  <div class="item-input">
+    <span>Сила тока, A</span>
+    <input type="number" name="currenStrength" formControlName="currenStrength">
+  </div>
+
+  <div class="item-input">
+    <span>Напряжение в сети, В</span>
+    <input type="number" name="voltage" formControlName="voltage">
+  </div>
+
+  <div *ngIf="this.bottomForm.value.mainsType !== 'directСurrent' &&
+              this.bottomForm.value.mainsType !== ''"
+              name="cos"
+              class="item-input">
+    <span>cos φ</span>
+    <input type="number" name="voltage" formControlName="cos">
+  </div>
+
+  <div class="result-box">
+    <h3 *ngIf="bottomForm.value.mainsType === 'directСurrent'">Мощность:
+      <strong>{{calcByCurrentAndVoltageDirect}}</strong> Вт
+    </h3>
+    <h3 *ngIf="bottomForm.value.mainsType === 'single-phase'">Мощность:
+      <strong> {{calcByCurrentAndVoltageSingle}}</strong> Вт
+    </h3>
+    <h3 *ngIf="bottomForm.value.mainsType === 'three-phase'">Мощность:
+      <strong> {{calcByCurrentAndVoltageThree}}</strong> Вт
+    </h3>
+  </div>
+</form>
+

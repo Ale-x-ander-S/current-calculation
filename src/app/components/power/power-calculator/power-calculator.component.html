@@ -1,0 +1,54 @@
+<div class="container">
+  <h3>Укажите параметры:</h3>
+
+  <form [formGroup]="form">
+    <div class="item-radio">
+      <input type="radio" id="item1" name="radio" formControlName="radio" value="radio1" checked>
+      <label for="item1">расчёт мощности по току и напряжению</label>
+    </div>
+
+    <div class="item-radio">
+      <input type="radio" id="item2" name="radio" formControlName="radio" value="radio2">
+      <label for="item2">расчет мощности по току и сопротивлению</label>
+    </div>
+
+    <div class="item-radio">
+      <input type="radio" id="item3" name="radio" formControlName="radio" value="radio3">
+      <label for="item3">расчет мощности по напряжению и сопротивлению</label>
+    </div>
+
+    <div class="container-input">
+      <app-calculation-by-current-voltage
+        *ngIf="form.value.radio === 'radio1'"
+      ></app-calculation-by-current-voltage>
+
+      <ng-container *ngIf="form.value.radio === 'radio2'">
+        <div class="item-input">
+          <span>Сила тока, A</span>
+          <input type="number" name="currenStrength" formControlName="currenStrength">
+        </div>
+        <div class="item-input">
+          <span>Сопротивление, Ом</span>
+          <input type="number" name="resistance" formControlName="resistance">
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="form.value.radio === 'radio3'">
+        <div *ngIf="form.value.radio === 'radio3'" class="item-input">
+          <span>Напряжение в сети, В</span>
+          <input type="number" name="voltage" formControlName="voltage">
+        </div>
+        <div class="item-input">
+          <span>Сопротивление, Ом</span>
+          <input type="number" name="resistance" formControlName="resistance">
+        </div>
+      </ng-container>
+    </div>
+
+    <div class="result-box">
+      <h3 *ngIf="form.value.radio === 'radio2'">Мощность: {{calcByCurrentAndResistance}} Вт</h3>
+      <h3 *ngIf="form.value.radio === 'radio3'">Мощность: {{calcByVoltageAndResistance}} Вт</h3>
+    </div>
+
+  </form>
+</div>

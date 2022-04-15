@@ -1,0 +1,61 @@
+<div class="container">
+  <h3>Укажите параметры:</h3>
+
+  <form [formGroup]="form">
+    <div class="item-radio">
+      <input type="radio" id="item1" name="radio" formControlName="radio" value="radio1" checked="checked">
+      <label for="item1">расчет сопротивления постоянного тока</label>
+    </div>
+
+    <div class="item-radio">
+      <input type="radio" id="item2" name="radio" formControlName="radio" value="radio2">
+      <label for="item2">расчет сопротивления переменного тока</label>
+    </div>
+
+    <div class="container-input" *ngIf="form.value.radio === 'radio1'">
+      <div class="item-input">
+        <span>Тип расчёта</span>
+        <select name="mainsType" formControlName="mainsType">
+          <option value="">Выбрать...</option>
+          <option value="currentVoltage">Сопротивление по току и напряжению</option>
+          <option value="currentPower">Сопротивление по току и мощности</option>
+          <option value="voltagePower">Сопротивление по напряжению и мощности</option>
+        </select>
+      </div>
+
+      <div class="item-input" *ngIf="form.value.mainsType !== 'voltagePower' && form.value.mainsType !== ''">
+        <span>Сила тока, A</span>
+        <input type="number" name="currenStrength" formControlName="currentStrength">
+      </div>
+
+      <div class="item-input" *ngIf="form.value.mainsType !== 'currentPower' && form.value.mainsType !== ''">
+        <span>Напряжение в сети, Вт</span>
+        <input type="number" name="voltage" formControlName="voltage">
+      </div>
+
+      <div class="item-input" *ngIf="form.value.mainsType !== 'currentVoltage' && form.value.mainsType !== ''">
+        <span>Мощность, Вт</span>
+        <input type="number" name="voltage" formControlName="power">
+      </div>
+    </div>
+
+    <div class="container-input" *ngIf="form.value.radio === 'radio2'">
+      <app-alternating-current></app-alternating-current>
+    </div>
+
+    <div class="result-box">
+      <h3 *ngIf="form.value.mainsType === 'currentVoltage'">Сопротивление:
+        <strong>{{getResistanceByCurrentAndVoltage}}</strong> Ом
+      </h3>
+
+      <h3 *ngIf="form.value.mainsType === 'currentPower'">Сопротивление:
+        <strong>{{getResistanceByCurrentAndPower}}</strong> Ом
+      </h3>
+
+      <h3 *ngIf="form.value.mainsType === 'voltagePower'">Сопротивление:
+        <strong>{{getResistanceByVoltageAndPower}}</strong> Ом
+      </h3>
+    </div>
+
+  </form>
+</div>
